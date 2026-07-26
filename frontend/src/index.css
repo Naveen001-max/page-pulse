@@ -1,0 +1,170 @@
+/* Developed by Naveen Choudhary */
+/* Project: Page Pulse */
+/* Built for Digital Heroes Training Task */
+
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-base: #06080f;
+    --bg-surface: #0a0d16;
+    --bg-card: rgba(255,255,255,0.03);
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.15);
+    --text-primary: #eef0f8;
+    --text-secondary: #7a84a0;
+    --text-muted: #3a4158;
+    --accent: #5b5ef4;
+    --accent-2: #9b8cff;
+    --accent-glow: rgba(91,94,244,0.25);
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Hide cursor on interactive elements too */
+  a, button, input, [role="button"] {
+    cursor: none;
+  }
+
+  ::selection {
+    background: rgba(91,94,244,0.3);
+    color: var(--text-primary);
+  }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg-base); }
+  ::-webkit-scrollbar-thumb { background: rgba(91,94,244,0.3); border-radius: 2px; }
+}
+
+@layer utilities {
+  .glass {
+    background: var(--bg-card);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--border);
+  }
+
+  .glass-hover {
+    transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+  }
+  .glass-hover:hover {
+    border-color: var(--border-hover);
+    background: rgba(255,255,255,0.05);
+    box-shadow: 0 0 40px rgba(91,94,244,0.06);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #ffffff 0%, #c7cbff 40%, #7b7fff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(91,94,244,0.6), rgba(155,140,255,0.2), transparent 60%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Marquee */
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 24s linear infinite;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+
+  /* Shimmer skeleton */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255,255,255,0.0) 0%,
+      rgba(255,255,255,0.05) 50%,
+      rgba(255,255,255,0.0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.6s infinite;
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* Pulse ring */
+  .pulse-ring {
+    animation: pulse-ring 2.5s cubic-bezier(0.215,0.61,0.355,1) infinite;
+  }
+  @keyframes pulse-ring {
+    0%   { box-shadow: 0 0 0 0 rgba(91,94,244,0.5); }
+    70%  { box-shadow: 0 0 0 8px rgba(91,94,244,0); }
+    100% { box-shadow: 0 0 0 0 rgba(91,94,244,0); }
+  }
+
+  /* Scan line */
+  @keyframes scan {
+    0%   { transform: translateY(-100%); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { transform: translateY(900%); opacity: 0; }
+  }
+  .scan-line { animation: scan 2.2s linear infinite; }
+
+  /* Float */
+  @keyframes float {
+    0%,100% { transform: translateY(0px) rotate(0deg); }
+    33%     { transform: translateY(-10px) rotate(1deg); }
+    66%     { transform: translateY(-5px) rotate(-1deg); }
+  }
+  .float { animation: float 6s ease-in-out infinite; }
+
+  /* Char reveal */
+  @keyframes char-in {
+    from { opacity: 0; transform: translateY(60%) skewY(6deg); }
+    to   { opacity: 1; transform: translateY(0) skewY(0deg); }
+  }
+  .char-reveal {
+    display: inline-block;
+    overflow: hidden;
+  }
+  .char-reveal span {
+    display: inline-block;
+    animation: char-in 0.6s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  /* Number counter glow */
+  .stat-number {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+}

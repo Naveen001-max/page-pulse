@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "page-pulse-backend"
+version = "1.0.0"
+description = "Page Pulse Website Audit Tool — Backend"
+authors = [{ name = "Naveen Choudhary" }]
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.111.0",
+    "uvicorn[standard]>=0.29.0",
+    "httpx>=0.27.0",
+    "beautifulsoup4>=4.12.3",
+    "lxml>=5.2.2",
+    "pydantic>=2.7.1",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
