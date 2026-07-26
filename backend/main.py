@@ -15,14 +15,13 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
 
 app.include_router(router)
 
-
 @app.get("/")
 async def root():
-    return {"message": "Page Pulse API is running", "version": "1.0.0"}
+    return {"message": "Page Pulse API is running 🚀"}
